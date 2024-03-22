@@ -204,5 +204,3 @@ if st.button('Find cell lines'):
         st.error('No gene was introduced')
     if value == '':
         st.error('No threshold was introduced')
-    if value[0] == '-':
-        st.error('Threshold expression value must be a positive number')
