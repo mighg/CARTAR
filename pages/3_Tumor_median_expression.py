@@ -230,9 +230,10 @@ if st.button('Create barplot'):
             f'The median values for each sample group in the selected tumors are displayed in the table below. The median values for each sample group in the selected tumors are displayed in the table below. If you want to explore the log2(Fold Change) between \"Primary tumor\" and \"Control\" samples, along with the statistical significance, please visit [**Tumor Gene Expression Tool**](https://cartar-car-targets.streamlit.app/Tumor_gene_expression). You can click on the column names to sort the tumors based on that column in ascending or descending order. Please note that **p-values under 0.001 are rounded to 0**; for the complete decimal value, click on the respective cell.'
         )
         st.dataframe(table_data, hide_index=True)
-        st.write(
-            'This table can be downloaded in CSV format.'
-        ) 
+        table = table_data.to_csv(encoding='utf-8', index=False)
+        b64 = base64.b64encode(table.encode()).decode()
+        href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
+        st.markdown(href, unsafe_allow_html=True) 
     elif gene == '':
         st.error('No gene symbol was introduced')
     elif gene not in data['gene'].values:
