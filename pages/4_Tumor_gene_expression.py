@@ -235,9 +235,10 @@ def plot_significance(tumors,y):
         f'All pertinent data is presented in the table below, featuring the log2(Fold Change) for each comparison —calculated as the median of log2(TPM+1) expression in primary tumor samples minus the median of log2(TPM+1) in control samples— and the corresponding p-value. You can click on column names to arrange the tumors based on that column, either in ascending or descending order. Please note that **p-values under 0.001 are rounded to 0**; for the complete decimal value, click on the respective cell.'
     )
     st.dataframe(table_data, hide_index=True)
-    st.write(
-        'This table can be downloaded in CSV format.'
-    )  
+    table = table_data.to_csv(encoding='utf-8', index=False)
+    b64 = base64.b64encode(table.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
+    st.markdown(href, unsafe_allow_html=True)
     
 # Dictionary with the tumor:GTEx healthy tissue correspondance
 gtex_tcga = {'ACC':'Adrenal Gland','BLCA':'Bladder','BRCA':'Breast','CESC':'Cervix Uteri', 'COAD':'Colon', 'DLBC':'Blood',
