@@ -199,9 +199,10 @@ def plot_significance(tumor,y,bottom,top):
         f'All relevant information is presented in the table below, encompassing critical aspects such as the log2(Fold Change) for each comparison. Computed as the log2(TPM+1) median of SKCM Group 1 expression minus the log2(TPM+1) median of SKCM Group 2 expression. For ease of exploration, you can click on the column names to arrange the rows based on the selected column, either in ascending or descending order. Please note that **p-values under 0.001 are rounded to 0**; for the complete decimal value, click on the respective cell.'
     )
     st.dataframe(table_data, hide_index=True)
-    st.write(
-        'This table can be downloaded in CSV format.'
-    ) 
+    table = table_data.to_csv(encoding='utf-8', index=False)
+    b64 = base64.b64encode(table.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
+    st.markdown(href, unsafe_allow_html=True)
 
 if st.button(f'Create {plot}'):
     if gene != '' and gene in data['gene'].values: 
