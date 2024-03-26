@@ -110,6 +110,17 @@ if value:
     else:
         st.error('Introduce a numerical threshold')
 
+st.markdown(
+    """
+    <style>
+    [data-testid="stElementToolbar"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 if st.button('Find cell lines'):
     if gene != '' and value.replace('.', '').isdigit() and value != '':
         url_data = 'https://gitlab.com/gmx2/CARTAR/-/raw/main/Expression_Public_23Q4_filtered.csv'
