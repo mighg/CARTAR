@@ -122,7 +122,7 @@ if value:
     else:
         st.error('Introduce a numerical threshold')
 
-if st.button('Find cell lines', type='primary'):
+if st.button('Find cell lines'):
     if gene != '' and value.replace('.', '').isdigit() and value != '':
         url_data = 'https://gitlab.com/gmx2/CARTAR/-/raw/main/Expression_Public_23Q4_filtered.csv'
         data = pd.read_csv(url_data, index_col=0)
