@@ -243,10 +243,11 @@ def statistics(y):
             f'The table below presents all relevant data, encompassing the log2(Fold Change) for each comparison. This calculation is derived from the median expression of {tumor} minus median expression of GTEx tissue, both based on log2(TPM+1). You can click in the column names to order the tissues according to that column from higher to lower or viceversa. Please note that **p-values under 0.001 are rounded to 0**; for the complete decimal value, click on the respective cell.'
         )
     st.dataframe(table_data, hide_index=True)
-    st.write(
-        'This table can be downloaded in CSV format.'
-    ) 
-
+    table = table_data.to_csv(encoding='utf-8', index=False)
+    b64 = base64.b64encode(table.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
+    st.markdown(href, unsafe_allow_html=True)
+    
 if st.button(f'Create {plot}'):
     if gene != '' and gene in data['gene'].values:
         groups = [] # List with the names of the tissue
