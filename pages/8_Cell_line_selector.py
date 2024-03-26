@@ -204,7 +204,7 @@ if st.button('Find cell lines', type='primary'):
             )
             st.dataframe(table_data, hide_index=True)  
             csv = table_data.to_csv(encoding='utf-8', index=False)
-            href = f'<a href="data:file/csv;base64,{b64}" download="csv.csv">Download CSV File</a>'
+            href = f'<a href="data:file/csv;base64" download="csv.csv">Download CSV File</a>'
 
         else:
             if expression == 'Underexpression':
