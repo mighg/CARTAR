@@ -210,9 +210,9 @@ if st.button('Show tumor-associated genes'):
                     f'The table below presents all relevant data, encompassing the log2(FC) between "Primary {tumor} tumor" and "Control" samples, along with the p-value and adjusted p-value for each gene below the specified threshold. You can enhance exploration by clicking on the column names to arrange genes based on that column, either from higher to lower or vice versa. Please note that **p-values under 0.001 are rounded to 0**; for the complete decimal value, click on the respective cell.'
                 )           
             st.dataframe(table_data, hide_index=True)
-            csv = table_data.to_csv(encoding='utf-8', index=False)
+            table = table_data.to_csv(encoding='utf-8', index=False)
             b64 = base64.b64encode(csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="csv.csv">Download CSV File</a>'
+            href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
             st.markdown(href, unsafe_allow_html=True) 
  
     elif FC == '':
