@@ -203,7 +203,7 @@ if st.button('Find cell lines', type='primary'):
                 f'All relevant data for the selected cell lines is presented in the table below, encompassing lineage, primary diseases, and disease subtypes. You can click on the column names to arrange the genes based on that column either in ascending or descending order. Further details for each cell line can be viewed by clicking on the respective cell, revealing the values with all the decimals.'
             )
             st.dataframe(table_data, hide_index=True)  
-            csv = df.to_csv(table_data)
+            csv = df.to_csv(table_data, encoding='utf-8')
             st.download_button(
                 label='Download data as csv',
                 data=csv,
