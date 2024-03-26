@@ -202,10 +202,14 @@ if st.button('Find cell lines'):
             st.write(
                 f'All relevant data for the selected cell lines is presented in the table below, encompassing lineage, primary diseases, and disease subtypes. You can click on the column names to arrange the genes based on that column either in ascending or descending order. Further details for each cell line can be viewed by clicking on the respective cell, revealing the values with all the decimals.'
             )
-            st.dataframe(table_data, hide_index=True)
-            st.write(
-                'This table can be downloaded in CSV format.'
-            ) 
+            csv = st.dataframe(table_data, hide_index=True)
+            btn = st.download_button(
+                label="Download data as csv",
+                data=csv,
+                file_name='table.csv',
+                mime='text/csv',"
+              )
+
         else:
             if expression == 'Underexpression':
                 st.error(f'No cell lines with {gene} expression under {threshold} {scale} have been found. Minimum value expression for {gene} in selected cell lines is {min_value} {scale}')
