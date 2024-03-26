@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from math import log2
 import requests
+import base64
 
 st.set_page_config(page_title='CARTAR', page_icon='logo.png',layout='wide')
 mystyle = '''
