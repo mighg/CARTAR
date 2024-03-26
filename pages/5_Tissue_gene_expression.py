@@ -8,6 +8,7 @@ import numpy as np
 import seaborn as sns
 import pickle
 from scipy.stats import mannwhitneyu
+import base64
 
 st.set_page_config(page_title='CARTAR', page_icon='logo.png',layout='wide')
 mystyle = '''
