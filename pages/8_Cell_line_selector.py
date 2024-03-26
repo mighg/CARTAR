@@ -204,10 +204,10 @@ if st.button('Find cell lines'):
             )
             csv = st.dataframe(table_data, hide_index=True)
             btn = st.download_button(
-                label="Download data as csv",
+                label='Download data as csv',
                 data=csv,
                 file_name='table.csv',
-                mime='text/csv',"
+                mime='text/csv',
               )
 
         else:
