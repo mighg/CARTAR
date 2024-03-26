@@ -8,6 +8,7 @@ import plotly.express as px
 from io import StringIO
 import requests
 import csv
+import base64
 
 st.set_page_config(page_title='CARTAR', page_icon='logo.png',layout='wide')
 mystyle = '''
