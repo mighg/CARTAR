@@ -121,7 +121,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-if st.button('Find cell lines'):
+if st.button('Find cell lines', type='primary'):
     if gene != '' and value.replace('.', '').isdigit() and value != '':
         url_data = 'https://gitlab.com/gmx2/CARTAR/-/raw/main/Expression_Public_23Q4_filtered.csv'
         data = pd.read_csv(url_data, index_col=0)
@@ -213,7 +213,6 @@ if st.button('Find cell lines'):
                 data=csv,
                 file_name='table.csv',
                 mime='text/csv',
-                type='primary',
               )
 
         else:
