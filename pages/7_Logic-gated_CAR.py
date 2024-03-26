@@ -280,9 +280,11 @@ if st.button(f'Show correlation'):
                 f'The table below displays the expression values of each gene for all samples. You can enhance your exploration by clicking on the column names to sort the tumors based on that column either from highest to lowest or vice versa.'
             )
             st.dataframe(table_data, hide_index=True)
-            st.write(
-                'This table can be downloaded in CSV format.'
-            )   
+            table = table_data.to_csv(encoding='utf-8', index=False)
+            b64 = base64.b64encode(table.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
+            st.markdown(href, unsafe_allow_html=True)            
+
     elif gene1 == '' and gene2 == '':
         st.error('Introduce desired gene symbols to see correlation')
     elif gene1 == '':
