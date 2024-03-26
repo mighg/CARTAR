@@ -60,6 +60,17 @@ def add_logo(png_file):
 
 add_logo('logo_v2.png')
 
+st.markdown(
+    """
+    <style>
+    [data-testid="stElementToolbar"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown(mystyle, unsafe_allow_html=True)
 st.title('Cancer cell line selector')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
@@ -110,17 +121,6 @@ if value:
         st.error('Threshold expression value must be a positive number')
     else:
         st.error('Introduce a numerical threshold')
-
-st.markdown(
-    """
-    <style>
-    [data-testid="stElementToolbar"] {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 if st.button('Find cell lines', type='primary'):
     if gene != '' and value.replace('.', '').isdigit() and value != '':
@@ -204,9 +204,9 @@ if st.button('Find cell lines', type='primary'):
                 f'All relevant data for the selected cell lines is presented in the table below, encompassing lineage, primary diseases, and disease subtypes. You can click on the column names to arrange the genes based on that column either in ascending or descending order. Further details for each cell line can be viewed by clicking on the respective cell, revealing the values with all the decimals.'
             )
             st.dataframe(table_data, hide_index=True)  
-            csv = table_data.to_csv(encoding='utf-8', index=False)
+            table = table_data.to_csv(encoding='utf-8', index=False)
             b64 = base64.b64encode(csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="csv.csv">Download CSV File</a>'
+            href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
             st.markdown(href, unsafe_allow_html=True)
 
         else:
