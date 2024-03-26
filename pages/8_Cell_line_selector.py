@@ -204,7 +204,7 @@ if st.button('Find cell lines', type='primary'):
             )
             st.dataframe(table_data, hide_index=True)  
             csv = table_data.to_csv(encoding='utf-8', index=False)
-            b64 = base64.64encode(csv.encode()).decode()
+            b64 = base64.b64encode(csv.encode()).decode()
             href = f'<a href="data:file/csv;base64,{b64}" download="csv.csv">Download CSV File</a>'
             st.markdown(href, unsafe_allow_html=True)
 
