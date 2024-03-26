@@ -60,6 +60,17 @@ def add_logo(png_file):
 
 add_logo('logo_v2.png')
 
+st.markdown(
+    """
+    <style>
+    [data-testid="stElementToolbar"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown(mystyle, unsafe_allow_html=True)
 st.title('Gene expression change across tumors')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
