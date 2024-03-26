@@ -4,6 +4,7 @@ import pandas as pd
 import statsmodels.stats.multitest as smm
 import streamlit as st
 import plotly.express as px
+import base64
 
 st.set_page_config(page_title='CARTAR', page_icon='logo.png',layout='wide')
 mystyle = '''
