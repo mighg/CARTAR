@@ -213,6 +213,7 @@ if st.button('Find cell lines'):
                 data=csv,
                 file_name='table.csv',
                 mime='text/csv',
+                type='secondary',
               )
 
         else:
