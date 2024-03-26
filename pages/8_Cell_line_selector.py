@@ -204,12 +204,13 @@ if st.button('Find cell lines', type='primary'):
             )
             st.dataframe(table_data, hide_index=True)  
             csv = table_data.to_csv(encoding='utf-8', index=False)
-            st.download_button(
+            if st.download_button(
                 label='Download data as csv',
                 data=csv,
                 file_name='table.csv',
                 mime='text/csv',
-              )
+              ):
+                  st.write('Done')
 
         else:
             if expression == 'Underexpression':
