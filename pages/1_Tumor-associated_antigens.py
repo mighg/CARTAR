@@ -15,6 +15,17 @@ mystyle = '''
     </style>
     '''
 
+st.markdown(
+    """
+    <style>
+    [data-testid="stElementToolbar"] {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 @st.cache_data
 def get_base64_of_bin_file(png_file):
     with open(png_file, "rb") as f:
