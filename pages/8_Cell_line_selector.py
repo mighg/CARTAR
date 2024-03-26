@@ -202,12 +202,8 @@ if st.button('Find cell lines', type='primary'):
             st.write(
                 f'All relevant data for the selected cell lines is presented in the table below, encompassing lineage, primary diseases, and disease subtypes. You can click on the column names to arrange the genes based on that column either in ascending or descending order. Further details for each cell line can be viewed by clicking on the respective cell, revealing the values with all the decimals.'
             )
-            st.dataframe(table_data, hide_index=True)
-            @st.cache_data
-            def convert_df(df):
-                return df.to_csv().encode('utf-8')
-            
-            csv = convert_df(table_data)
+            st.dataframe(table_data, hide_index=True)  
+            csv = df.to_csv(table_data)
             st.download_button(
                 label='Download data as csv',
                 data=csv,
