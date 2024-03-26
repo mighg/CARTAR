@@ -208,7 +208,7 @@ if st.button('Find cell lines', type='primary'):
                 return df.to_csv().encode('utf-8')
             
             csv = convert_df(table_data)
-            btn = st.download_button(
+            st.download_button(
                 label='Download data as csv',
                 data=csv,
                 file_name='table.csv',
