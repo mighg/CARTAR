@@ -93,6 +93,7 @@ abbreviations = {'ACC':'Adrenocortical carcinoma','BLCA':'Bladder Urothelial Car
                  'UCEC':'Uterine Corpus Endometrial Carcinoma','UCS':'Uterine Carcinosarcoma'}
 
 genes = st.text_input('Enter gene symbols of interest (separated by commas or spaces):').upper().strip(' ')
+experimental_pm = open('Data/HPA_evidence_pm.csv','r').split(',')
 correct_genes = []
 # Identify if indicated gene is present in the data
 exclude = open('Data/no_membrane_genes.csv','r')
