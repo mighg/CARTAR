@@ -295,7 +295,7 @@ if st.button(f'Show correlation'):
                     f'**{gene1} and {gene2} have been experimetally reported to be located in the plasma membrane.**'
                 )
             else: 
-                st.write('Neither of the proteins have been experimentally reported to be located in the plasmas membrana.')
+                st.write(f'**Neither of the proteins have been experimentally reported to be located in the plasma membrana.**')
             st.dataframe(table_data, hide_index=True)
             table = table_data.to_csv(encoding='utf-8', index=False)
             b64 = base64.b64encode(table.encode()).decode()
