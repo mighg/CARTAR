@@ -128,7 +128,6 @@ if HPA_membrane[-2:] == ', ':
     HPA_membrane = HPA_membrane[:-2]
 parts = HPA_membrane.rsplit(',', 1)
 HPA_membrane = ' and'.join(parts)
-st.write(HPA_membrane)
 tumors = st.multiselect('Select tumors (optional)', tumor_options)
 # Expander to show abbreviation meaning
 with st.expander('Extension of tumor abbreviations\' meaning'):
