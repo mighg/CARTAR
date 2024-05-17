@@ -120,6 +120,11 @@ else:
                 st.error(f'{gene} gene symbol not found')
         else:
             correct_genes.append(gene)
+HPA_membrane = ""
+for gene in correct_genes:
+    if gene in experimental_pm_genes:
+        HPA_membrane.replace('and',',')
+        HPA_membrane += f'{gene} and '
 tumors = st.multiselect('Select tumors (optional)', tumor_options)
 # Expander to show abbreviation meaning
 with st.expander('Extension of tumor abbreviations\' meaning'):
@@ -136,7 +141,6 @@ elif selection == 'log2(FC)':
 st.info('FC = Fold Change')
 
 if st.button('Show Fold Change'):
-    HPA_membrane = ""
     # If there is at least one valid gene
     if correct_genes:
         data = open('Data/log2FC_expression.csv','r')
@@ -157,9 +161,6 @@ if st.button('Show Fold Change'):
             # Identify the corresponding fold change for the introduced tumors in the desired scale
             else: 
                 for gene in correct_genes:
-                    if gene in experimental_pm_genes:
-                        HPA_membrane.replace('and',',')
-                        HPA_membrane += f'{gene} and'
                     if fields[0] == gene:
                         if scale == 'FC':
                             for index in indexes:
