@@ -185,15 +185,14 @@ if st.button('Show Fold Change'):
         st.write(
             f'The {scale} expression for the specified genes between the "Primary tumor" and "Control" samples is displayed in the table below. To determine whether the expression difference is statistically significant across these conditions, refer to the [**Tumor Gene Expression Tool**](https://cartar-car-targets.streamlit.app/Tumor_gene_expression). For insights into whether any gene is expressed in healthy GTEx tissues, visit the [**Tissue Gene Expression Tool**](https://cartar-car-targets.streamlit.app/Tissue_gene_expression) to assess its specificity. Click on the column names to sort the tumors based on the respective column in ascending or descending order.'
         )
-        if gene in experimental_pm_genes:
-            if 'and' not in HPA_membrane:
-                st.write(
-                    f'**{HPA_membrane} has been experimetally reported to be located in the plasma membrane.**'
-                )   
-            else:
-                st.write(
-                    f'**{HPA_membrane} have been experimetally reported to be located in the plasma membrane.**'
-                )
+        if 'and' in HPA_membrane:
+            st.write(
+                f'**{HPA_membrane} have been experimetally reported to be located in the plasma membrane.**'
+            )
+        else:
+            st.write(
+                f'**{HPA_membrane} has been experimetally reported to be located in the plasma membrane.**'
+            )   
         st.dataframe(table_data, hide_index=True)
         table = table_data.to_csv(encoding='utf-8', index=False)
         b64 = base64.b64encode(table.encode()).decode()
