@@ -133,6 +133,7 @@ elif selection == 'log2(FC)':
 st.info('FC = Fold Change')
 
 if st.button('Show Fold Change'):
+    HPA_membrane = ""
     # If there is at least one valid gene
     if correct_genes:
         data = open('Data/log2FC_expression.csv','r')
@@ -150,9 +151,12 @@ if st.button('Show Fold Change'):
                     if field in tumors:
                         indexes.append(f'{field}_{fields.index(field)}')
                 firstline = 0
-            # Identify the correspondinf fold change for the introduced tumors in the desired scale
+            # Identify the corresponding fold change for the introduced tumors in the desired scale
             else: 
                 for gene in correct_genes:
+                    if gene in experimental_pm_genes:
+                        HPA_membrane.replace('and',',')
+                        HPA_membrane += f'{gene} and'
                     if fields[0] == gene:
                         if scale == 'FC':
                             for index in indexes:
@@ -173,6 +177,15 @@ if st.button('Show Fold Change'):
         st.write(
             f'The {scale} expression for the specified genes between the "Primary tumor" and "Control" samples is displayed in the table below. To determine whether the expression difference is statistically significant across these conditions, refer to the [**Tumor Gene Expression Tool**](https://cartar-car-targets.streamlit.app/Tumor_gene_expression). For insights into whether any gene is expressed in healthy GTEx tissues, visit the [**Tissue Gene Expression Tool**](https://cartar-car-targets.streamlit.app/Tissue_gene_expression) to assess its specificity. Click on the column names to sort the tumors based on the respective column in ascending or descending order.'
         )
+        if gene in experimental_pm_genes:
+            if 'and' not in HPA_membrane:
+                st.write(
+                    f'**{HPA_membrane} has been experimetally reported to be located in the plasma membrane.**'
+                )   
+            else:
+                st.write(
+                    f'**{HPA_membrane} have been experimetally reported to be located in the plasma membrane.**'
+                )
         st.dataframe(table_data, hide_index=True)
         table = table_data.to_csv(encoding='utf-8', index=False)
         b64 = base64.b64encode(table.encode()).decode()
