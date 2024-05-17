@@ -123,8 +123,8 @@ else:
 HPA_membrane = ""
 for gene in correct_genes:
     if gene in experimental_pm_genes:
-        HPA_membrane.replace('and',',')
-        HPA_membrane += f'{gene} and '
+        HPA_membrane += f'{gene} , '
+HPa_membrane = HPA_membrane.replace(',','and')
 if HPA_membrane[-4:] == 'and ':
     HPA_membrane = HPA_membrane[:-5]
 st.write(HPA_membrane)
