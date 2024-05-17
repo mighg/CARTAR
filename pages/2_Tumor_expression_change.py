@@ -125,6 +125,8 @@ for gene in correct_genes:
     if gene in experimental_pm_genes:
         HPA_membrane.replace('and',',')
         HPA_membrane += f'{gene} and '
+if HPA_membrane[-5:] == 'and ':
+    HPA_membrane = HPA_membrane[-5:]
 tumors = st.multiselect('Select tumors (optional)', tumor_options)
 # Expander to show abbreviation meaning
 with st.expander('Extension of tumor abbreviations\' meaning'):
