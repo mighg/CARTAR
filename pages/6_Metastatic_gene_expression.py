@@ -225,8 +225,6 @@ if st.button(f'Create {plot}'):
                 if group == 'Normal':
                     group = 'Control'
                 groups.append(group)
-                else:
-                    groups.append(group)
                 if scale == 'log2(TPM+1)':
                     value = log2(value+1)
                 values.append(value)
