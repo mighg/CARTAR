@@ -105,7 +105,6 @@ if gene != '' and gene not in data_list:
         st.error(f'{gene} gene not found')
 tumors = st.multiselect('Select cancer cell line lineage (optional)', tissue_options) # Introduce tumor tissues or none if you want all tumors
 if not tumors:
-    #tumors = tissue_options
     st.info('If no cancer cell lineage is selected, all lineages will be displayed')
 expression =  st.radio('Select underexpression or overexpression', expression_options)# Introduce under to look for cell with expression values below the threshold or over for expression values aboce the threshold
 scale =  st.radio('Select scale', scale_options) # Introduce scale 
