@@ -34,7 +34,7 @@ def build_markup_for_logo(
                 margin-top: 20px;
                 font-size: 15px;
                 position: relative;
-                top: 100px;
+                top: 50px;
                 }
             </style>
             """ % (
