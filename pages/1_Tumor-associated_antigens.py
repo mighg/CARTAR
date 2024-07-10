@@ -195,7 +195,6 @@ if st.button('Show tumor-associated genes'):
             b64 = base64.b64encode(table.encode()).decode()
             href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
             st.markdown(href, unsafe_allow_html=True)
-            st.header('Cite us')            
     elif FC == '':
         st.error('No FC was introduced') 
     elif FC[0] == '-':
