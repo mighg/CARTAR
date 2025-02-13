@@ -88,7 +88,7 @@ abbreviations = {'ACC':'Adrenocortical carcinoma','BLCA':'Bladder Urothelial Car
 
 gene1 = st.text_input('Enter first gene symbol').upper().strip(' ')
 # Identify if indicated gene is present in the data
-data = pd.read_csv('Data/log2FC_expression_all_genes.csv')
+data = pd.read_csv('Data/log2FC_expression.csv')
 if gene1 == '':
     st.error('Introduce gene symbol. You can try CEACAM6')
 if 'MORF' not in gene1:
@@ -127,41 +127,41 @@ if st.button(f'Show correlation'):
         # If gene in data
         if gene1 in data['gene'].values and gene2 in data['gene'].values:  
             if 'A' <= gene1[0] <= 'C':
-                gtex1 = 'Data/gtex_AC_all_genes.pkl'
-                tcga1 = 'Data/tcga_AC_all_genes.pkl'
+                gtex1 = 'Data/gtex_AC.pkl'
+                tcga1 = 'Data/tcga_AC.pkl'
             elif 'D' <= gene1[0] <= 'J':
-                gtex1 = 'Data/gtex_DJ_all_genes.pkl'
-                tcga1 = 'Data/tcga_DJ_all_genes.pkl'
+                gtex1 = 'Data/gtex_DJ.pkl'
+                tcga1 = 'Data/tcga_DJ.pkl'
             elif 'K' <= gene1[0] <= 'N':
-                gtex1 = 'Data/gtex_KN_all_genes.pkl'
-                tcga1 = 'Data/tcga_KN_all_genes.pkl'
+                gtex1 = 'Data/gtex_KN.pkl'
+                tcga1 = 'Data/tcga_KN.pkl'
             elif 'O' <= gene1[0] <= 'R':   
-                gtex1 = 'Data/gtex_OR_all_genes.pkl'
-                tcga1 = 'Data/tcga_OR_all_genes.pkl'
+                gtex1 = 'Data/gtex_OR.pkl'
+                tcga1 = 'Data/tcga_OR.pkl'
             elif 'S' <= gene1[0] <= 'T':   
-                gtex1 = 'Data/gtex_ST_all_genes.pkl'
-                tcga1 = 'Data/tcga_ST_all_genes.pkl'
+                gtex1 = 'Data/gtex_ST.pkl'
+                tcga1 = 'Data/tcga_ST.pkl'
             elif 'U' <= gene1[0] <= 'Z':   
-                gtex1 = 'Data/gtex_UZ_all_genes.pkl'
-                tcga1 = 'Data/tcga_UZ_all_genes.pkl'
+                gtex1 = 'Data/gtex_UZ.pkl'
+                tcga1 = 'Data/tcga_UZ.pkl'
             if 'A' <= gene2[0] <= 'C':
-                gtex2 = 'Data/gtex_AC_all_genes.pkl'
-                tcga2 = 'Data/tcga_AC_all_genes.pkl'
+                gtex2 = 'Data/gtex_AC.pkl'
+                tcga2 = 'Data/tcga_AC.pkl'
             elif 'D' <= gene2[0] <= 'J':
-                gtex2 = 'Data/gtex_DJ_all_genes.pkl'
-                tcga2 = 'Data/tcga_DJ_all_genes.pkl'
+                gtex2 = 'Data/gtex_DJ.pkl'
+                tcga2 = 'Data/tcga_DJ.pkl'
             elif 'K' <= gene2[0] <= 'N':
-                gtex2 = 'Data/gtex_KN_all_genes.pkl'
-                tcga2 = 'Data/tcga_KN_all_genes.pkl'
+                gtex2 = 'Data/gtex_KN.pkl'
+                tcga2 = 'Data/tcga_KN.pkl'
             elif 'O' <= gene2[0] <= 'R':   
-                gtex2 = 'Data/gtex_OR_all_genes.pkl'
-                tcga2 = 'Data/tcga_OR_all_genes.pkl'
+                gtex2 = 'Data/gtex_OR.pkl'
+                tcga2 = 'Data/tcga_OR.pkl'
             elif 'S' <= gene2[0] <= 'T':   
-                gtex2 = 'Data/gtex_ST_all_genes.pkl'
-                tcga2 = 'Data/tcga_ST_all_genes.pkl'
+                gtex2 = 'Data/gtex_ST.pkl'
+                tcga2 = 'Data/tcga_ST.pkl'
             elif 'U' <= gene2[0] <= 'Z':   
-                gtex2 = 'Data/gtex_UZ_all_genes.pkl'
-                tcga2 = 'Data/tcga_UZ_all_genes.pkl'
+                gtex2 = 'Data/gtex_UZ.pkl'
+                tcga2 = 'Data/tcga_UZ.pkl'
             # Create the dicitionary with all the data
             groups = [] # Groups of tumor (Primary or Control)
             values1 = [] # Gene1 expression values 
