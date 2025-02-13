@@ -87,16 +87,6 @@ abbreviations = {'ACC':'Adrenocortical carcinoma','BLCA':'Bladder Urothelial Car
                  'UCEC':'Uterine Corpus Endometrial Carcinoma','UCS':'Uterine Carcinosarcoma'}
 
 gene1 = st.text_input('Enter first gene symbol').upper().strip(' ')
-# Open files to identify location of the genes
-experimental_pm_file = open('Data/HPA_evidence_pm.csv','r')
-for line in experimental_pm_file:
-    experimental_pm_genes = line.split(',')
-no_membrane = open('Data/no_membrane_genes.csv','r')
-for line in no_membrane:
-    no_membrane_genes = line.split(',')
-no_experimental_pm_file = open('Data/membrane_non_experimental_genes.csv','r')
-for line in no_experimental_pm_file:
-    no_experimental_pm_genes = line.split(',')
 # Identify if indicated gene is present in the data
 data = pd.read_csv('Data/log2FC_expression_all_genes.csv')
 if gene1 == '':
@@ -266,45 +256,6 @@ if st.button(f'Show correlation'):
             st.write(
                 f'The table below displays the expression values of each gene for all samples. You can enhance your exploration by clicking on the column names to sort the tumors based on that column either from highest to lowest or vice versa.'
             )
-            if gene1 in experimental_pm_genes:
-                if gene2 in no_experimental_pm_genes:
-                    st.write(
-                        f'**{gene1}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas, while **{gene2}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
-                    )
-                if gene2 in experimental_pm_genes:
-                    st.write(
-                        f'**{gene1} and {gene2}** have been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
-                    )
-                if gene2 in no_membrane_genes:
-                    st.write(
-                        f'**{gene2}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene1}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
-                    )              
-            elif gene1 in no_experimental_pm_genes:
-                if gene2 in experimental_pm_genes:
-                    st.write(
-                        f'**{gene2}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas, while **{gene1}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
-                    )
-                if gene2 in no_experimental_pm_genes:
-                    st.write(
-                        f'**{gene1} and {gene2}** have been reported to be **located in the plasma membrane** by the Gene Ontology, but this has not been experimentally demonstrated by the Human Protein Atlas.'
-                    )   
-                if gene2 in no_membrane_genes: 
-                    st.write(
-                        f'**{gene2}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene1}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
-                    )  
-            elif gene1 in no_membrane_genes:
-                if gene2 in experimental_pm_genes: 
-                    st.write(
-                        f'**{gene1}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene2}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
-                    )
-                if gene2 in no_experimental_pm_genes: 
-                    st.write(
-                        f'**{gene1}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene2}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
-                    )  
-                elif gene2 in no_membrane_genes: 
-                    st.write(
-                        f'**{gene1} and {gene2}** have **not** been reported to be **located in the plasma membrane** by the Gene Ontology.'
-                    )             
             st.dataframe(table_data, hide_index=True)
             table = table_data.to_csv(encoding='utf-8', index=False)
             b64 = base64.b64encode(table.encode()).decode()
