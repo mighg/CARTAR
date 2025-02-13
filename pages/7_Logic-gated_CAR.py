@@ -67,9 +67,9 @@ st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow
 st.write('This tool can be used to explore the correlation between two genes expression values in "Primary tumor" and "Control" samples of a specified tumor to assess the potential of their combination for a logic-gated CAR therapy (OR-gate, AND-gate, NOT-gate, or IF-BETTER-gate).')
 st.markdown('- **OR-gate:** effector cell activation upon binding to either one of two antigens. This strategy can be used when either one of the antigens is highly expressed in "Primary tumor" samples, while their expression is low in "Control" samples.')
 st.markdown('- **AND-gate:** effector cell activation upon binding to both antigens simultaneously. This strategy can be used when both antigens are expressed in "Primary tumor" samples, while none or only one of the antigens is expressed in "Control" samples.')
-st.markdown('- **NOT-gate:** effector cell activation upon binding to one antigen while the second antigen is not recognised. This strategy can be used when the antigen triggering the cytotoxic activity is present is certain healthy tissues and you wnat to increase selectivity by including an antigen thar respress this activity and is only expressed in the healthy tissues. To identify this antigens you must go to **Tissue gene expression tool**.')
+st.markdown('- **NOT-gate:** effector cell activation upon binding to one antigen while the second antigen is not recognised. This strategy can be used when the antigen triggering the cytotoxic activity is present in certain healthy tissues and you want to increase selectivity by including an antigen that respresses this activity and is only expressed in the healthy tissues. To identify these antigens you must go to **Tissue gene expression tool**.')
 st.markdown('- **IF-BETTER-gate:** effector cell activation upon binding to high CAR target expression. Activation is not triggered upon binding to low CAR targer expression, unless the second antigen is present.')
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 tumor_options  = ['ACC','BLCA','BRCA','CESC','CHOL','COAD','DLBC','ESCA','GBM','HNSC','KICH','KIRC','KIRP','LAML','LGG','LIHC','LUAD','LUSC','OV','PAAD','PCPG','PRAD','READ','SARC','SKCM','STAD','TGCT','THCA','THYM','UCEC','UCS']
 scale_options = ['TPM','log2(TPM+1)']
@@ -86,30 +86,34 @@ abbreviations = {'ACC':'Adrenocortical carcinoma','BLCA':'Bladder Urothelial Car
                  'TGCT':'Testicular Germ Cell Tumors','THCA':'Thyroid carcinoma','THYM':'Thymoma',
                  'UCEC':'Uterine Corpus Endometrial Carcinoma','UCS':'Uterine Carcinosarcoma'}
 
+gene1 = st.text_input('Enter first gene symbol').upper().strip(' ')
+# Open files to identify location of the genes
 experimental_pm_file = open('Data/HPA_evidence_pm.csv','r')
 for line in experimental_pm_file:
     experimental_pm_genes = line.split(',')
-gene1 = st.text_input('Enter first gene symbol').upper().strip(' ')
+no_membrane = open('Data/no_membrane_genes.csv','r')
+for line in no_membrane:
+    no_membrane_genes = line.split(',')
+no_experimental_pm_file = open('Data/membrane_non_experimental_genes.csv','r')
+for line in no_experimental_pm_file:
+    no_experimental_pm_genes = line.split(',')
 # Identify if indicated gene is present in the data
-data = pd.read_csv('Data/log2FC_expression.csv')
-exclude = open('Data/no_membrane_genes.csv','r')
-for line in exclude:
-    no_membrane = line.split(',')
+data = pd.read_csv('Data/log2FC_expression_all_genes.csv')
 if gene1 == '':
     st.error('Introduce gene symbol. You can try CEACAM6')
+if 'MORF' not in gene1:
+    if 'ORF' in gene1:
+        gene1 = gene1.replace('ORF','orf')
 elif gene1 != '' and gene1 not in data['gene'].values:
-    if gene1 in no_membrane:
-        st.error(f'The protein encoded by {gene1} is not located at the membrane')
-    else:
-        st.error(f'{gene1} gene symbol not found')
+    st.error(f'{gene1} gene symbol not found')
 gene2 = st.text_input('Enter second gene symbol').upper().strip(' ')
 if gene2 == '':
     st.error('Introduce gene symbol. You can try DPEP1')
+if 'MORF' not in gene2:
+    if 'ORF' in gene2:
+        gene2 = gene2.replace('ORF','orf')
 elif gene2 != '' and gene2 not in data['gene'].values:
-    if gene2 in no_membrane:
-        st.error(f'The protein encoded by {gene2} is not located at the membrane')
-    else:
-        st.error(f'{gene2} gene symbol not found')
+    st.error(f'{gene2} gene symbol not found')
 tumor = st.selectbox('Choose tumor', tumor_options)
 # Expander to show abbreviation meaning
 with st.expander('Extension of tumor abbreviations\' meaning'):
@@ -133,43 +137,43 @@ if st.button(f'Show correlation'):
         # If gene in data
         if gene1 in data['gene'].values and gene2 in data['gene'].values:  
             if 'A' <= gene1[0] <= 'C':
-                gtex1 = 'Data/gtex_AC.pkl'
-                tcga1 = 'Data/tcga_AC.pkl'
+                gtex1 = 'Data/gtex_AC_all_genes.pkl'
+                tcga1 = 'Data/tcga_AC_all_genes.pkl'
             elif 'D' <= gene1[0] <= 'J':
-                gtex1 = 'Data/gtex_DJ.pkl'
-                tcga1 = 'Data/tcga_DJ.pkl'
+                gtex1 = 'Data/gtex_DJ_all_genes.pkl'
+                tcga1 = 'Data/tcga_DJ_all_genes.pkl'
             elif 'K' <= gene1[0] <= 'N':
-                gtex1 = 'Data/gtex_KN.pkl'
-                tcga1 = 'Data/tcga_KN.pkl'
+                gtex1 = 'Data/gtex_KN_all_genes.pkl'
+                tcga1 = 'Data/tcga_KN_all_genes.pkl'
             elif 'O' <= gene1[0] <= 'R':   
-                gtex1 = 'Data/gtex_OR.pkl'
-                tcga1 = 'Data/tcga_OR.pkl'
+                gtex1 = 'Data/gtex_OR_all_genes.pkl'
+                tcga1 = 'Data/tcga_OR_all_genes.pkl'
             elif 'S' <= gene1[0] <= 'T':   
-                gtex1 = 'Data/gtex_ST.pkl'
-                tcga1 = 'Data/tcga_ST.pkl'
+                gtex1 = 'Data/gtex_ST_all_genes.pkl'
+                tcga1 = 'Data/tcga_ST_all_genes.pkl'
             elif 'U' <= gene1[0] <= 'Z':   
-                gtex1 = 'Data/gtex_UZ.pkl'
-                tcga1 = 'Data/tcga_UZ.pkl'
+                gtex1 = 'Data/gtex_UZ_all_genes.pkl'
+                tcga1 = 'Data/tcga_UZ_all_genes.pkl'
             if 'A' <= gene2[0] <= 'C':
-                gtex2 = 'Data/gtex_AC.pkl'
-                tcga2 = 'Data/tcga_AC.pkl'
+                gtex2 = 'Data/gtex_AC_all_genes.pkl'
+                tcga2 = 'Data/tcga_AC_all_genes.pkl'
             elif 'D' <= gene2[0] <= 'J':
-                gtex2 = 'Data/gtex_DJ.pkl'
-                tcga2 = 'Data/tcga_DJ.pkl'
+                gtex2 = 'Data/gtex_DJ_all_genes.pkl'
+                tcga2 = 'Data/tcga_DJ_all_genes.pkl'
             elif 'K' <= gene2[0] <= 'N':
-                gtex2 = 'Data/gtex_KN.pkl'
-                tcga2 = 'Data/tcga_KN.pkl'
+                gtex2 = 'Data/gtex_KN_all_genes.pkl'
+                tcga2 = 'Data/tcga_KN_all_genes.pkl'
             elif 'O' <= gene2[0] <= 'R':   
-                gtex2 = 'Data/gtex_OR.pkl'
-                tcga2 = 'Data/tcga_OR.pkl'
+                gtex2 = 'Data/gtex_OR_all_genes.pkl'
+                tcga2 = 'Data/tcga_OR_all_genes.pkl'
             elif 'S' <= gene2[0] <= 'T':   
-                gtex2 = 'Data/gtex_ST.pkl'
-                tcga2 = 'Data/tcga_ST.pkl'
+                gtex2 = 'Data/gtex_ST_all_genes.pkl'
+                tcga2 = 'Data/tcga_ST_all_genes.pkl'
             elif 'U' <= gene2[0] <= 'Z':   
-                gtex2 = 'Data/gtex_UZ.pkl'
-                tcga2 = 'Data/tcga_UZ.pkl'
+                gtex2 = 'Data/gtex_UZ_all_genes.pkl'
+                tcga2 = 'Data/tcga_UZ_all_genes.pkl'
             # Create the dicitionary with all the data
-            groups = [] # Groups of tumor (Primary or Normal)
+            groups = [] # Groups of tumor (Primary or Control)
             values1 = [] # Gene1 expression values 
             values2 = [] # Gene2 expression values 
             #If both genes in same file get the desired data
@@ -262,27 +266,52 @@ if st.button(f'Show correlation'):
             st.write(
                 f'The table below displays the expression values of each gene for all samples. You can enhance your exploration by clicking on the column names to sort the tumors based on that column either from highest to lowest or vice versa.'
             )
-            if gene1 in experimental_pm_genes and gene2 not in experimental_pm_genes:
-                st.write(
-                    f'**{gene1} has been experimetally reported to be located in the plasma membrane by the Human Protein Atlas.**'
-                )
-            elif gene1 not in experimental_pm_genes and gene2 in experimental_pm_genes:
-                st.write(
-                    f'**{gene2} has been experimetally reported to be located in the plasma membrane by the Human Protein Atlas.**'
-                )
-            elif gene1 in experimental_pm_genes and gene2 in experimental_pm_genes:
-                st.write(
-                    f'**{gene1} and {gene2} have been experimetally reported to be located in the plasma membrane by the Human Protein Atlas.**'
-                )
-            else: 
-                st.write(f'**Neither of the proteins have been experimentally reported to be located in the plasma membrana by the Human Protein Atlas.**')
+            if gene1 in experimental_pm_genes:
+                if gene2 in no_experimental_pm_genes:
+                    st.write(
+                        f'**{gene1}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas, while **{gene2}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
+                    )
+                if gene2 in experimental_pm_genes:
+                    st.write(
+                        f'**{gene1} and {gene2}** have been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
+                    )
+                if gene2 in no_membrane_genes:
+                    st.write(
+                        f'**{gene2}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene1}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
+                    )              
+            elif gene1 in no_experimental_pm_genes:
+                if gene2 in experimental_pm_genes:
+                    st.write(
+                        f'**{gene2}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas, while **{gene1}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
+                    )
+                if gene2 in no_experimental_pm_genes:
+                    st.write(
+                        f'**{gene1} and {gene2}** have been reported to be **located in the plasma membrane** by the Gene Ontology, but this has not been experimentally demonstrated by the Human Protein Atlas.'
+                    )   
+                if gene2 in no_membrane_genes: 
+                    st.write(
+                        f'**{gene2}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene1}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
+                    )  
+            elif gene1 in no_membrane_genes:
+                if gene2 in experimental_pm_genes: 
+                    st.write(
+                        f'**{gene1}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene2}** has been **experimetally** reported to be **located in the plasma membrane** by the Human Protein Atlas.'
+                    )
+                if gene2 in no_experimental_pm_genes: 
+                    st.write(
+                        f'**{gene1}** has **not** been reported to be **located in the plasma membrane** by the Gene Ontology, while **{gene2}** has been reported to be **located in the plasma membrane** by the Gene Ontology, but it has not been experimentally demonstrated by the Human Protein Atlas.'
+                    )  
+                elif gene2 in no_membrane_genes: 
+                    st.write(
+                        f'**{gene1} and {gene2}** have **not** been reported to be **located in the plasma membrane** by the Gene Ontology.'
+                    )             
             st.dataframe(table_data, hide_index=True)
             table = table_data.to_csv(encoding='utf-8', index=False)
             b64 = base64.b64encode(table.encode()).decode()
             href = f'<a href="data:file/csv;base64,{b64}" download="table.csv">Download CSV File</a>'
             st.markdown(href, unsafe_allow_html=True)   
         else: 
-            st.error('Review the introduced genes. One or both of them are not present in the dataset')
+            st.error('Review the introduced genes. One or both of them are not present in the dataset') 
     elif gene1 == '' and gene2 == '':
         st.error('Introduce desired gene symbols to see correlation')
     elif gene1 == '':
