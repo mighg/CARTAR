@@ -59,7 +59,7 @@ def create_footer():
 st.markdown(mystyle, unsafe_allow_html=True)
 st.title('Gene expression change across tumors')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
-st.write('This tool can be used to explore fold change expression values ("Primary tumor" compared to "Control" samples) for a gene or gene set of interest in the desired tumors. This will provide a table with the fold cahnge value for each indicated gene in each selected tumor. This will allow to get preliminary information for candidate target genes to check if they are overexpressed in certain tumor and if it can be used to treat more than one tumor.')
+st.write('This tool can be used to explore fold change expression values ("Primary tumor" compared to "Control" samples) for a gene or gene set of interest in the desired tumors. This will provide a table with the fold change value for each indicated gene in each selected tumor. This will allow to get preliminary information for candidate target genes to check if they are overexpressed in certain tumor and if it can be used to treat more than one tumor.')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 tumor_options  = ['ACC','BLCA','BRCA','CESC','CHOL','COAD','DLBC','ESCA','GBM','HNSC','KICH','KIRC','KIRP','LAML','LGG','LIHC','LUAD','LUSC','OV','PAAD','PCPG','PRAD','READ','SARC','SKCM','STAD','TGCT','THCA','THYM','UCEC','UCS']
