@@ -62,7 +62,7 @@ def create_footer():
 st.markdown(mystyle, unsafe_allow_html=True)
 st.title('Metastatic gene expression in SKCM')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
-st.write('This tool can be used to generate boxplots, violin plots, or dot plots for the expression values of a gene of interest for the "Primary tumor", "Metastatic", and "Control" samples of **Skin Cutaneous Melanoma (SKCM)**. SKCM is the only TCGA tumor group with sufficient "Metastatic" sample size (N=366) to get statistical significance of differential expression. Besides, median expression values, sample sizes for each group, and statistical significance of differential expression between sample groups are reported in table format.')
+st.write('This tool can be used to generate boxplots, violin plots, or dot plots for the expression values of a gene of interest for the "Primary tumor", "Metastatic" and "Control" samples of **Skin Cutaneous Melanoma (SKCM)**. SKCM is the only TCGA tumor group with sufficient "Metastatic" sample size (N=366) to get statistical significance of differential expression. Besides, median expression values, sample sizes for each group, and statistical significance of differential expression between sample groups are reported in table format.')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 scale_options = ['TPM','log2(TPM+1)']
@@ -100,7 +100,7 @@ st.info('TPM = Transcript Per Million')
 # Calculate statistical significance and customize plot function
 def plot_significance(tumor,y,bottom,top):
     significant_combinations = []
-    data = {'Groups compared':[],'Median Group 1':[],'Group 1 sample size':[], 'Median Group 2':[],'Group 2 sample size':[], 'log2(Fold Change)':[],'Significance':[],'p-value':[]}
+    data = {'Groups compared':[],'Median group 1':[],'Group 1 sample size':[], 'Median group 2':[],'Group 2 sample size':[], 'log2(Fold Change)':[],'Significance':[],'p-value':[]}
     # Get the y-axis limits
     y_range = top - bottom
     # Identify groups with statistical difference
@@ -115,8 +115,8 @@ def plot_significance(tumor,y,bottom,top):
             data['Group 1 sample size'].append(len(tumor1_data))
             data['Group 2 sample size'].append(len(tumor2_data))
             data['Groups compared'].append(f'{tumor1} vs {tumor2}')
-            data['Median Group 1'].append(np.median(tumor1_data))
-            data['Median Group 2'].append(np.median(tumor2_data))
+            data['Median group 1'].append(np.median(tumor1_data))
+            data['Median group 2'].append(np.median(tumor2_data))
             data['p-value'].append(p_value)
             if p_value < 0.001:
                 data['Significance'].append('<0.001')
@@ -181,7 +181,7 @@ def plot_significance(tumor,y,bottom,top):
     st.header(plot, divider='rainbow')
     st.pyplot()
     st.write(
-        f'The above figure illustrates the {plot} for {gene} expression in {scale} across "Metastatic," "Primary tumor," and "Control" SKCM samples, comparing the expression between these groups. Statistical significance is denoted for each SKCM group (***: p_value < 0.001, **: p_value < 0.01, *: p_value < 0.05).'
+        f'The above figure illustrates the {plot} for {gene} expression in {scale} across "Metastatic", "Primary tumor" and "Control" SKCM samples, comparing the expression between these groups. Statistical significance is denoted for each SKCM group (***: p_value < 0.001, **: p_value < 0.01, *: p_value < 0.05).'
     )
     st.header('Data table', divider='rainbow')
     st.write(
