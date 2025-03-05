@@ -207,7 +207,7 @@ if st.button('Find cell lines'):
                 st.error(f'No cell lines with {gene} expression over {value_d} {scale} have been found. Maximum value expression for {gene} in selected cell lines is {max_value} {scale}')
     elif gene == '':
         st.error('No gene was introduced')
-    else:
+    elif gene != '' and gene not in data_list:
         st.error(f'{gene} gene symbol not found')
     if value == '':
         st.error('No threshold was introduced')
