@@ -65,7 +65,7 @@ def create_footer():
 st.markdown(mystyle, unsafe_allow_html=True)
 st.title('Gene expression across tumors')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>',unsafe_allow_html=True)
-st.write('This tool can be used to generate boxplots, violin plots, or dot plots for the expression values of a gene of interest in primary tumor and control samples of desired tumor groups. Besides, median expression values, sample sizes of each group, and statistical significance of differential expression (obtained by Mann-Whitney U test) between "Primary tumor" and "Control" samples are reported in table format. This provide more detailed information than the **Tumor median expression tool** while no information about "Metastatic" samples is included due to its reduced sample size. In case of Skin Cutaneous Melanoma (SKCM), the only tumor group with a large "Metastatic" sample size (N=366) you can go to the **Metastatic gene expression tool** to compare between the three sample groups.')
+st.write('This tool can be used to generate boxplots, violin plots, or dot plots for the expression values of a gene of interest in primary tumor and control samples of desired tumor groups. Besides, median expression values, sample sizes of each group, and statistical significance of differential expression (obtained by Mann-Whitney U test) between "Primary tumor" and "Control" samples are reported in table format. This provides more detailed information than the **Tumor median expression tool** while no information about "Metastatic" samples is included due to its reduced sample size. In case of Skin Cutaneous Melanoma (SKCM), the only tumor group with a large "Metastatic" sample size (N=366) you can go to the **Metastatic gene expression tool** to compare between the three sample groups.')
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 tumor_options  = ['ACC','BLCA','BRCA','CESC','CHOL','COAD','DLBC','ESCA','GBM','HNSC','KICH','KIRC','KIRP','LAML','LGG','LIHC','LUAD','LUSC','OV','PAAD','PCPG','PRAD','READ','SARC','SKCM','STAD','TGCT','THCA','THYM','UCEC','UCS']
@@ -216,7 +216,7 @@ def plot_significance(tumors,y):
     st.header(plot, divider='rainbow')
     st.pyplot()
     st.write(
-        f'The above figure displays the {plot} for {gene} expression in {scale} across selected tumors, comparing the expression between "Primary tumor" and "Control" samples. Statistical significance is indicated on top, between each specified tumor and its corresponding control (***: p_value < 0.001, **: p_value < 0.01, *: p_value < 0.05). The plot highlights significant overexpression in :red[red] when the gene is overexpressed in "Primary tumor" samples compared to "Control" samples, and in :green[green] when it is underexpressed."'
+        f'The above figure displays the {plot} for {gene} expression in {scale} across selected tumors, comparing the expression between "Primary tumor" and "Control" samples. Statistical significance is indicated on top, between each specified tumor and its corresponding control (***: p_value < 0.001, **: p_value < 0.01, *: p_value < 0.05). The plot highlights significant overexpression in :red[red] when the gene is overexpressed in "Primary tumor" samples compared to "Control" samples, and in :green[green] when it is underexpressed.'
     )
     st.header('Data table', divider='rainbow')
     st.write(
