@@ -200,7 +200,7 @@ def plot_significance(tumor,y,bottom,top,K_pvalue):
 if st.button(f'Create {plot}'):
     if gene != '' and gene in data['gene'].values: 
         # Identify GTEx tissue sample corresponding to control group of tumor
-        with open('Data/SKCM_all_genes.pkl', 'rb') as archivo:
+        with open('Data/SKCM.pkl', 'rb') as archivo:
             SKCM = pickle.load(archivo)
         # Get requested information
         groups = [] # Gruops of tumor (Metastatic, Primary or Control)
@@ -260,5 +260,6 @@ if st.button(f'Create {plot}'):
         st.error('No gene symbol was introduced')        
 
 create_footer()
+
 
 
