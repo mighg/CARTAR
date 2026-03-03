@@ -70,14 +70,14 @@ scale_options = ['TPM','log2(TPM+1)']
 plot_options = ['Boxplot','Violin plot','Dot plot']
 gene = st.text_input('Enter gene symbol').upper().strip(' ')
 # Open files to identify location of the genes
-experimental_pm_file = open('../../Data/Raw/HPA_evidence_pm.csv','r')
+experimental_pm_file = open('Data/HPA_evidence_pm.csv','r')
 for line in experimental_pm_file:
     experimental_pm_genes = line.split(',')
-no_membrane = open('../../Data/Processed/no_membrane_genes.csv','r')
+no_membrane = open('Data/no_membrane_genes.csv','r')
 for line in no_membrane:
     no_membrane_genes = line.split(',')
 # Identify if indicated gene is present in the data
-data = pd.read_csv('../../Data/Processed/log2FC_expression_all_genes.csv')
+data = pd.read_csv('Data/log2FC_expression_all_genes.csv')
 if gene == '':
     st.error('Introduce gene symbol. You can try FGFR1')
 if 'MORF' not in gene:
@@ -200,7 +200,7 @@ def plot_significance(tumor,y,bottom,top,K_pvalue):
 if st.button(f'Create {plot}'):
     if gene != '' and gene in data['gene'].values: 
         # Identify GTEx tissue sample corresponding to control group of tumor
-        with open('../../Data/Processed/SKCM_all_genes.pkl', 'rb') as archivo:
+        with open('Data/SKCM_all_genes.pkl', 'rb') as archivo:
             SKCM = pickle.load(archivo)
         # Get requested information
         groups = [] # Gruops of tumor (Metastatic, Primary or Control)
@@ -260,3 +260,4 @@ if st.button(f'Create {plot}'):
         st.error('No gene symbol was introduced')        
 
 create_footer()
+
