@@ -77,7 +77,7 @@ no_membrane = open('Data/no_membrane_genes.csv','r')
 for line in no_membrane:
     no_membrane_genes = line.split(',')
 # Identify if indicated gene is present in the data
-data = pd.read_csv('Data/log2FC_expression_all_genes.csv')
+data = pd.read_csv('Data/log2FC_expression.csv')
 if gene == '':
     st.error('Introduce gene symbol. You can try FGFR1')
 if 'MORF' not in gene:
@@ -260,4 +260,5 @@ if st.button(f'Create {plot}'):
         st.error('No gene symbol was introduced')        
 
 create_footer()
+
 
