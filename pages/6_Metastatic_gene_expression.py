@@ -260,6 +260,3 @@ if st.button(f'Create {plot}'):
         st.error('No gene symbol was introduced')        
 
 create_footer()
-
-
-
