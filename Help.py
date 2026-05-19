@@ -1,6 +1,7 @@
 import streamlit as st
 import base64
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(
     page_title='CARTAR',
     page_icon='logo.png',
